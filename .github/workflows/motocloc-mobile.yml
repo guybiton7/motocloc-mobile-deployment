@@ -1,0 +1,28 @@
+name: CI for motocloc-mobile-deployment
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'apps/motocloc-mobile-deployment/**'
+      - '.github/workflows/motocloc-mobile.yml'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build application
+        run: npx nx build motocloc-mobile-deployment
