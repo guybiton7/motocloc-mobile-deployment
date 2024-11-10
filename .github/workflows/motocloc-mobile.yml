@@ -8,6 +8,11 @@ on:
       - 'apps/motocloc-mobile-deployment/**'
       - '.github/workflows/motocloc-mobile.yml'
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,3 +37,9 @@ jobs:
         with:
           name: 'github-pages'
           path: dist/apps/motocloc-mobile-deployment
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          artifact_name: 'github-pages'
